@@ -1,0 +1,4 @@
+button [ onClick ( AddDoctor { 
+          name = model.currentDocName, requisitionsYTD = model.currentDocReqsYTD 
+            |> String.toInt |> Result.toMaybe |> Maybe.withDefault -1
+        }) ] [ text "Add new doc" ],

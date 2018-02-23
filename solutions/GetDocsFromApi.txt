@@ -1,0 +1,17 @@
+    GetDocsFromApi  -> (model, Http.send GotDocsFromApi callApi )
+    GotDocsFromApi result -> 
+        case result of
+            Err error -> 
+                let 
+                    _ = Debug.log "failed" error
+                in
+                    (model, Cmd.none )
+            Ok str ->
+                ( { model | doctorsFromApi = str}, Cmd.none )
+
+url = "http://localhost:3000/docs"
+
+callApi = Http.get url decodeResult
+
+decodeResult : Json.Decode.Decoder String
+decodeResult = Json.Decode.at ["name"] Json.Decode.string
